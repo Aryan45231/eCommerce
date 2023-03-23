@@ -8,8 +8,6 @@ const app = express()
 const port = process.env.PORT || 2000
 const session = require("express-session")
 
-
-
 // controllers 
 
 // for post

@@ -1,6 +1,5 @@
 const db_manager = require("./connection")
 module.exports =  (check,collback) => {
-   console.log(check)
    db_manager.query(
       `
          SELECT *

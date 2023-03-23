@@ -13,10 +13,10 @@ module.exports = (id, collback) => {
          else {
            if(id=="file"){
             collback(res)
-            console.log(res)
+           
            }else{
             collback(res[0])
-            console.log(res)
+         
            }
          }
       })

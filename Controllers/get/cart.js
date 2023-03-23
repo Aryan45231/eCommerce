@@ -1,6 +1,6 @@
 const readUser = require("../../db/getUserData")
 const readProduct = require("../../db/getProductData")
-const write = require("../../db/writeData")
+const write = require("../../db/writeUserCart")
 module.exports = (req, res) => {
     try {
         if (req.session.flag == false)
@@ -21,8 +21,10 @@ module.exports = (req, res) => {
                             quantity: 1
                         }
     
-                        if (user.cart.length > 0)
+                        if (user.cart!= null){
+                            user.cart=JSON.parse(user.cart)
                             exist_product = user.cart.find(ele => ele.id == product.id)
+                        }
                         if (exist_product != undefined) {
                             const index = user.cart.indexOf(exist_product)
                             if (task == "add") {
@@ -59,7 +61,11 @@ module.exports = (req, res) => {
                             }
                         }
                         else {
+                           if(user.cart==null)
+                             user.cart=[]
                             user.cart.push(user_cart_obj)
+                            
+                            JSON.stringify(user.cart)
                             write(user)
                             res.json({
                                 status: true,
