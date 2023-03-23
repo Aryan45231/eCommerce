@@ -1,0 +1,87 @@
+.cart_container{
+    margin-top: 70px;
+    display: flex;
+
+}
+.added_porduct_container{
+    flex: 70%;
+    display: flex;
+    align-items: center ;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.shipping_details_container{
+   
+    flex:30%;
+    border-left: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.cart_card{
+    width: 280px;
+    padding: 10px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+button{
+    background-color: white;
+    cursor: pointer;
+     border: 1px solid black;
+     padding: 5px; 
+     font-size: 20px;
+}
+.details{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.details h2{
+    color: green;
+    text-align: right;
+    margin-right: 30px;
+}
+.product_images{
+   
+    display: flex;
+    justify-content: center;
+    height: 200px;
+    width: 200px;
+}
+.product_images img{
+    height: 100%;
+    width: 90%;
+}
+.quantity_controllers{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toatal_amount{
+    padding :20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.contineu{
+
+    font-size: 15px;
+    transition: all .2s linear ;
+    width: 80%;;
+    background-color: black;;
+    color: white;
+    border: none;
+}
+.contineu:hover{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}

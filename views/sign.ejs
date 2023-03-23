@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+   </head>
+<body>
+   <div class="auth_container">
+    <div class="sign_in_poster">
+        <div class="poster_box">
+            
+        </div>
+    </div>
+    <div class="sing_in_container" id="sign_in">
+        <h1>
+           Sign-IN
+        </h1>
+       <form action="" id="signin_form">
+           <input type="email" required name="email" onchange="collectData(this)" placeholder="Email">
+           <input type="password" required name="password" id="" onchange="collectData(this)" placeholder="Password">
+           <button > Sign-IN</button>
+           <a href="/forgetPassword"> Forget Password </a>
+       </form> 
+       <h4 onclick="change(`sign_in`)">
+           Sing-UP
+       </h4>
+</div>
+
+<div class="sing_in_container sing_up" id="sign_up">
+   <h1 style="margin-bottom: 50px;">
+      Sign-UP
+   </h1>
+  <form action="" id="signup_fomr"  >
+   <input type="email" required  name="email" onchange="collectSignUpData(this)" placeholder="Email">
+   <input type="text" required name="name" onchange="collectSignUpData(this)" placeholder="Name">
+   
+      <input type="password" required name="password" onchange="collectSignUpData(this)" placeholder="password">
+      <input type="password" required name="c_password" id="" onchange="collectSignUpData(this)" placeholder="confirm password">
+      <button style="margin-top: 30px;" > Sing-UP</button>
+  </form> 
+  <h4 onclick="change(`sign_up`)">
+      Sign-IN
+  </h4>
+</div>
+   </div>
+</body>
+
+<script src="./script/script.js"></script>
+
+
+</html>     

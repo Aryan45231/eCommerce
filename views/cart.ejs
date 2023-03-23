@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<link rel="stylesheet" href="/style/nav.css">
+<link rel="stylesheet" href="/style/cart.css">
+</head>
+<body>
+    <div class="namevar" id="navbar"></div>
+    <div class="cart_container">
+        <div class="added_porduct_container">
+            <% for(i=0;i<cartData.length;i++){%>
+                 <div class="cart_card" id="<%- cartData[i].id %>">
+                     <div class="product_images">
+                    <img src="<%- cartData[i].img %>" alt="">
+                     </div>
+                 <div class="details">
+                    <h3>
+                        <%- cartData[i].name %>
+                    </h3>
+                       <div class="quantity_controllers">
+                           <div class="buttons">
+                            <button onclick="addproduct(`<%- cartData[i].id %>`)"> +</button>
+                            <%- cartData[i].quantity %>
+                            <button onclick="subProduct(`<%- cartData[i].id %>`)" >-</button>
+                           </div>
+                             <h2>
+                          &#8377  <%-cartData[i].quantity* cartData[i].price  %>
+                            </h2>
+                       </div>
+                  
+                 </div>
+                 </div>
+                <% } %>
+        </div>
+      <div class="shipping_details_container">
+              <h1>
+                YOur Details
+              </h1>
+            <div class="toatal_amount">
+                 <h3>
+                    Your Total ammount
+                 </h3>
+                    <% var temp=0 %>
+                    <% for(i=0;i<cartData.length;i++) { %>
+                      <%  temp= temp+cartData[i].quantity * cartData[i].price %>
+                        <% } %>
+                 <h3 style="color:green" >
+                 &#8377    <%- temp %>
+                 </h3>
+                
+            </div>
+            <button class="contineu">
+                Continue
+          </button>
+
+      </div>  
+    </div>
+</body>
+<script src="/script//nav.js"></script>
+<script>
+  const addproduct= async(id)=>{
+     const res = await fetch(`/cart/${id}/add`)
+     console.log(res)
+     const data=await res.json()
+     if(data.status==true){
+      location.reload()
+     }else if(data.status==false){
+      alert(data.message)
+     }else{
+      console.log("error")
+     }
+  }
+  const subProduct=async (id)=>{
+    console.log(id)
+    const res = await fetch(`/cart/${id}/sub`)
+    const data = await res.json();
+    if(data.status==false){
+      location.reload()
+    }else if(data.status==true){
+       location.reload()
+    }
+  }
+</script>
+</html>
