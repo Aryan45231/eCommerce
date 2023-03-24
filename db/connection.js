@@ -28,5 +28,4 @@ db_manager.query( `desc USERS; `,
         }
     }
 )
-
 module.exports = db_manager
