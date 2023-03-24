@@ -27,6 +27,9 @@ const sendEmail = require("./Controllers/get/sendEmail")
 const verifyOtp = require("./Controllers/get/verifyOtp")
 const logout = require("./Controllers/get/logout");
 const changePassword = require("./Controllers/post/changePassword")
+
+
+
 // MiddleWares
 const verify = require("./utils/verify");
 app.use(express.static(__dirname + "/public"))
@@ -44,7 +47,7 @@ app.get("/changePassword/:email/:_id",(req,res)=>{res.render("./resetPassword.ej
 app.get("/showcart/:_id", verify, showcart)
 
 
-// Routes for getting get services
+// Routes for  get services
 app.get("/cart/:_id/:task", cart)
 app.get("/email/:_email/:task", sendEmail)
 app.get("/verifyOtp/:otp",verifyOtp)
@@ -56,6 +59,7 @@ app.get("/details/:_id", details)
 app.post("/sing_up", signup)
 app.post("/sign-in", singin)
 app.post("/changePassword/:email/:_id", changePassword)
+
 // for Products
 // to send products to client side
 const start = async () => {
