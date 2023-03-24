@@ -63,8 +63,7 @@ module.exports = (req, res) => {
                         else {
                            if(user.cart==null)
                              user.cart=[]
-                            user.cart.push(user_cart_obj)
-                            
+                            user.cart.push(user_cart_obj)    
                             JSON.stringify(user.cart)
                             write(user)
                             res.json({
