@@ -1,6 +1,6 @@
 const fs=require("fs")
 const bcrypt =require("bcrypt")
-const readUser=require("../../db/getUserData")
+const readUser=require("../../services/db/mysql/users/getUserData")
 const  jwt= require("jsonwebtoken")
 module.exports=(req, res) => {
     readUser(req.body.email,(obj)=>{

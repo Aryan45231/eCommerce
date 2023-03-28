@@ -5,71 +5,36 @@
 // liberaries
 const express = require("express")
 const app = express()
+const origin = "/"
 const port = process.env.PORT || 2000
+require("dotenv").config({path:"./.env"})
+
+// Requiring Session 
 const session = require("express-session")
+app.use(session({ secret: process.env.session_secret }))
 
-// controllers 
-
-// for post
-const signup = require("./Controllers/post/signup")
-const singin = require("./Controllers/post/signin.js")
-
-// for pages
-const home = require("./Controllers/pages/home")
-const Authentication = require("./Controllers/pages/Authentication")
-const showcart = require("./Controllers/pages/showcart")
-
-// for get fetch services
-const products = require("./Controllers/get/products");
-const details = require("./Controllers/get/details");
-const cart = require("./Controllers/get/cart")
-const sendEmail = require("./Controllers/get/sendEmail")
-const verifyOtp = require("./Controllers/get/verifyOtp")
-const logout = require("./Controllers/get/logout");
-const changePassword = require("./Controllers/post/changePassword")
-
-
-
-// MiddleWares
-const verify = require("./utils/verify");
-app.use(express.static(__dirname + "/public"))
+// MiddleWare
+app.use(origin ,express.static(__dirname + "/public"))
+app.use( origin ,express.static("./upload/productsImages"))
 app.set('view engine', 'ejs');
 app.use(express.json())
-app.use(session({ secret: "appAsw23423234J&e23" }))
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true, limit: "50mb" }))
 
-// get Routes
-// Routes for hitting pages
-app.get("/", home)
-app.get("/signin", Authentication)
-app.get("/forgetPassword",(req,res)=>{res.render("./forget.ejs")})
-app.get("/changePassword/:email/:_id",(req,res)=>{res.render("./resetPassword.ejs")})
-app.get("/showcart/:_id", verify, showcart)
+// Home Page ROutes
+const Home = require("./Routes/home")
+app.use(origin, Home)
 
+/// Authentication Routes
+const Authentication = require("./Routes/authentication")
+app.use(origin, Authentication)
 
-// Routes for  get services
-app.get("/cart/:_id/:task", cart)
-app.get("/email/:_email/:task", sendEmail)
-app.get("/verifyOtp/:otp",verifyOtp)
-app.get("/logout", logout)
-app.get("/products/:counter", products)
-app.get("/details/:_id", details)
+// Product and Cart Routes
+const ProductAndCart = require("./Routes/productAndCart")
+app.use(origin, ProductAndCart)
 
-// post Routes
-app.post("/sing_up", signup)
-app.post("/sign-in", singin)
-app.post("/changePassword/:email/:_id", changePassword)
+// Admin Control Routes
+const Admin = require("./Routes/admin")
+app.use(origin, Admin)
 
-// for Products
-// to send products to client side
-const start = async () => {
-    try {
-        app.listen(port, () => {
-            console.log(`server is at ${port}`)
-        })
-    } catch (e) {
-        console.log(e)
-    }
-}
-start()
+app.listen(port, () => { console.log(` server is at ${port}`) })
 

@@ -1,5 +1,5 @@
 const nav = () => {
-  const nav = document.getElementById("navbar")
+  const nav = document.createElement("div")
   const name = sessionStorage.getItem("name")
   const id=sessionStorage.getItem("id")
   if (name)
@@ -35,6 +35,9 @@ const nav = () => {
   `
 
   }
+  document.body.appendChild(nav)
+  nav.className="namevar"
+
 }
 nav()
 const logout=()=>{

@@ -1,6 +1,6 @@
 const aws=require("aws-sdk")
 const env=require("dotenv")
-const readUser=require("../../db/getUserData")
+const readUser=require("../../services/db/mysql/users/getUserData")
 env.config()
 const awsConfig={
     accessKeyId:"AKIA4YNT2ZJPPDHI2EG4",

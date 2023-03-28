@@ -15,7 +15,7 @@
             <% for(i=0;i<cartData.length;i++){%>
                  <div class="cart_card" id="<%- cartData[i].id %>">
                      <div class="product_images">
-                    <img src="<%- cartData[i].img %>" alt="">
+                    <img src="/<%-cartData[i].img %>" alt="">
                      </div>
                  <div class="details">
                     <h3>
@@ -31,7 +31,7 @@
                           &#8377  <%-cartData[i].quantity* cartData[i].price  %>
                             </h2>
                        </div>
-                  
+            
                  </div>
                  </div>
                 <% } %>

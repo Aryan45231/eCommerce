@@ -1,5 +1,5 @@
-const readUser= require("../../db/getUserData")
-const writeUser= require("../../db/writeData")
+const readUser= require("../../services/db/mysql/users/getUserData")
+const writeUser= require("../../services/db/mysql/users/writeuserdata")
 const bcrypt= require("bcrypt")
 module.exports=(req,res)=>{
     if(req.session.ChangePassword==true){

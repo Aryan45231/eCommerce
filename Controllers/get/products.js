@@ -1,4 +1,4 @@
-const readProduct=require("../../db/getProductData")
+const readProduct=require("../../services/db/mysql/products/getProductData")
 module.exports=(req,res)=>{
     readProduct("file",(data)=>{
         const counter=JSON.parse(req.params.counter)

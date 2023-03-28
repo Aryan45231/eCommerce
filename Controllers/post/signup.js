@@ -1,4 +1,4 @@
- const writeUser =require("../../db/writeData")
+ const writeUser =require("../../services/db/mysql/users/writeuserdata")
 const bcrypt =require("bcrypt")
 module.exports=(req, res) => {
         req.body.password = bcrypt.hashSync(req.body.password, 13)

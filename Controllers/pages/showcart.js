@@ -1,4 +1,4 @@
-const readUser=require("../../db/getUserData")
+const readUser=require("../../services/db/mysql/users/getUserData")
 module.exports=(req,res)=>{
   const user_id=req.params._id
     readUser(user_id,(user)=>{

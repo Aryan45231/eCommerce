@@ -1,6 +1,6 @@
-const readUser = require("../../db/getUserData")
-const readProduct = require("../../db/getProductData")
-const write = require("../../db/writeUserCart")
+const readUser = require("../../services/db/mysql/users/getUserData")
+const readProduct = require("../../services/db/mysql/products/getProductData")
+const write = require("../../services/db/mysql/users/writeUserCart")
 module.exports = (req, res) => {
     try {
         if (req.session.flag == false)

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style/nav.css">  
+    <link rel="stylesheet" href="/style/admin.css">
+</head>
+<body>
+     <div class="admin_data_container">
+            <div class="admin_products_container">
+                <% for(i=0; i< productData.length;i++){%>
+                <div class="admin_products_card" id="card<%- productData[i].id %>">
+                     <div class="product_imge">
+                         <img src="<%- productData[i].img %>" alt="">
+                     </div>
+                     <h3>
+                        <%- productData[i].name %>
+                     </h3>
+                     <div class="products_controls">
+                          <button  onclick="deleteProduct(`<%- productData[i].id %>` )">
+                              delete 
+                          </button>
+                          <button onclick="edit(1)">  
+                             update
+                          </button>
+                     </div>
+                </div>
+                <% } %>
+          
+            </div>
+            <div class="add_product_button">
+               <button  onclick="addproduct()"> ADD product</button>
+            </div>
+     </div>
+</body>
+<script src="/script//nav.js"></script>
+<script src="/script/adminctrl.js"></script>
+
+</html>
