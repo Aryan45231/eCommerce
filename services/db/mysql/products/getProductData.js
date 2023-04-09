@@ -1,6 +1,7 @@
 const fs = require("fs")
 const db_manager = require("../connection")
 module.exports = (id, collback) => {
+   console.log('the id is ', id)
    let query = ""
    if (id == "file")
       query = `  select * from  products;;   `
@@ -15,6 +16,7 @@ module.exports = (id, collback) => {
             collback(res)
            
            }else{
+            console.log(res)
             collback(res[0])
          
            }

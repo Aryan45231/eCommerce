@@ -1,26 +1,33 @@
-const fs=require("fs")
+require("dotenv").config({path :"../../.env"})
 const bcrypt =require("bcrypt")
 const readUser=require("../../services/db/mysql/users/getUserData")
 const  jwt= require("jsonwebtoken")
 module.exports=(req, res) => {
     readUser(req.body.email,(obj)=>{
-        console.log(req.body)
-        console.log(obj)
-            if (obj!=undefined) {
+        if(obj!=undefined){
+            console.log(obj)
+            if (req.body.type == obj.type) {
                 const userData = {
                     status: true,
                     name: obj.name,
-                    id:obj.id
+                    id:obj.id,
+                    token:"",
+                    type:obj.type
                 }
                 if (bcrypt.compareSync(req.body.password, obj.password)) {
                     req.session.name = obj.name
                     req.session.flag = true
-                    req.session._id=obj.id
-                    userData.token= jwt.sign({
-                        id:obj.id
-                    },"abcaa22")
+                    console.log("the sessin is cahge isnto" ,req.session.flag)
+                    req.session.type = obj.type
+                    req.session._id = obj.id
+                    console.log("the id for session is " , req.session._id)
+                    if(obj.type=="admin"){
+                        userData.token= jwt.sign( JSON.stringify(obj), process.env.adminTokenSecret)
+                    }
+                    else if(obj.type=="seller"){
+                         userData.token =jwt.sign(JSON.stringify(obj), process.env.sellerTokenSecret )
+                    }
                     res.json(userData)
-
                 } else {
                     res.json({
                         status: false,
@@ -30,8 +37,15 @@ module.exports=(req, res) => {
             } else {
                 res.json({
                     status: false,
-                    message: "email not registered"
+                    message: " Invalid email or password"
                 })
             }
+        }else {
+            res.json({
+                status: false,
+                message: "email not registered"
+              
+            })
+        }
     })
 }

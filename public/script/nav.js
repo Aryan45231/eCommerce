@@ -1,7 +1,16 @@
+
 const nav = () => {
-  const nav = document.createElement("div")
-  const name = sessionStorage.getItem("name")
-  const id=sessionStorage.getItem("id")
+let userdata = JSON.parse(sessionStorage.getItem("userdata"))
+if(userdata==null)
+userdata={
+  name :undefined,
+  id:undefined,
+  type:undefined,
+  token:undefined
+}
+const {name , id ,type, token} =userdata
+console.log(name)
+const nav= document.createElement("div")
   if (name)
     nav.innerHTML = `
    <div class="user menus">
@@ -9,7 +18,7 @@ const nav = () => {
      GETWATCH
      </a>
     </div> 
-    <div class="menus">
+    <div class="menus" id="menu">
           <a>
             ${name}
           </a>
@@ -24,7 +33,7 @@ const nav = () => {
      <div class="user">
      GETWATCH
    </div> 
-   <div class="menus">
+   <div class="menus" id="menu"> 
 
          <a href="/signin">
            signin
@@ -36,6 +45,14 @@ const nav = () => {
 
   }
   document.body.appendChild(nav)
+  if(type=="admin"){
+    const control =document.createElement("a")
+    control.href=`/adminControl/${token}`
+    control.innerHTML="Controls"
+    document.getElementById("menu").appendChild(control)
+  }
+
+
   nav.className="namevar"
 
 }

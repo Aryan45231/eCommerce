@@ -1,10 +1,10 @@
+require("../../.env")
 const aws=require("aws-sdk")
-const env=require("dotenv")
 const readUser=require("../../services/db/mysql/users/getUserData")
 env.config()
 const awsConfig={
-    accessKeyId:"AKIA4YNT2ZJPPDHI2EG4",
-    secretAccessKey:"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",
+    accessKeyId:process.enaccess_keyv,
+    secretAccessKey:process.env.aws_password,
     region:"ap-south-1"
 }
 
@@ -13,7 +13,7 @@ const sendEmail=async(reciver_email, message)=>{
    console.log(reciver_email)
   const  email= "aryan78231@gmail.com"
   try{
-    console.log("hello")
+ 
 
     // prepare email to send
     const params={

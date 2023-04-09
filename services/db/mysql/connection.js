@@ -14,7 +14,13 @@ const db_manager = mysql.createPool({
 //     database:"shopping_application",
 //     connectionLimit:10
 // })
-
+db_manager.query(" select * from USERS ;",(err,result)=>{
+    if(err){
+        console.log(err)
+    }else{
+        console.log(result)
+    }
+})
 
 db_manager.getConnection((err) => {
     if (err) {

@@ -9,11 +9,12 @@ const write = (obj) => {
         } else {
             if (result.length == 0) {
                 query = `
-              insert into USERS (id , name , email , password) values(
-                "${obj.id}",
+              insert into USERS ( name , email , password ,type) values(
+                
                  "${obj.name}" ,
                  "${obj.email}",
-                  "${obj.password}"
+                  "${obj.password}",
+                  "${obj.type}"
               );
 `
                 db_manager.query(query, (err, result) => {

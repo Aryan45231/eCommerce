@@ -8,7 +8,7 @@ module.exports = (req, res) => {
         else {
             const id = req.session._id
             const task = req.params.task
-        
+            console.log(id)
             {
                 readProduct(req.params._id, (product) => {
                     readUser(id, (user) => {

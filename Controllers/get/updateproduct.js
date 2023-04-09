@@ -4,7 +4,9 @@ module.exports=(req,res)=>{
     const id=req.params._id
     const task=req.params.task
     if(task=="read"){
+        console.log(id)
         readProuct(id,(product)=>{
+             console.log(product)
                 res.json(product)
         })
     }

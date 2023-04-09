@@ -74,13 +74,11 @@ const showDetails = async (id) => {
 }
 const cart = async (id) => {
    try{
-    let user_id=undefined;
-    user_id= sessionStorage.getItem("token")
   const res = await fetch(`/cart/${id}/add`)
   const data= await res.json()
   if (data.status == true) {
-    const id=sessionStorage.getItem("id")
-    location.href=location.origin+`/showcart/${id}`
+    const uid=JSON.parse(sessionStorage.getItem("userdata")).id
+    location.href=location.origin+`/showcart/${uid}`
   }
   else if(data.status==false){
         alert(data.message)

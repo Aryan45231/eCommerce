@@ -9,6 +9,7 @@ module.exports=(obj)=>{
         "${obj.des}",
          ${obj.price},
          ${obj.stock}
+        
      )
     
     `,(err ,result)=>{

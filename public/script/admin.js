@@ -1,10 +1,11 @@
-alert("connnectd")
+const token = JSON.parse(sessionStorage.getItem("userdata")).token
+console.log(token)
 const edit = async (id) => {
   let ischanged = false;
-  const res = await fetch(`/updateproduct/${id}/read`)
+  console.log(id)
+  const res = await fetch(`/updateproduct/${id}/read/${token}`)
   const data = await res.json()
   console.log(data)
-
   const div = document.createElement("div")
   div.className = "background"
   div.innerHTML = `   <form class="edit_panel" id="editform" enctype="multipart/form-data">
@@ -26,13 +27,13 @@ const edit = async (id) => {
              
          </div>
         <div class="edit_product_image">
-            <input type="file" id="edited_image" style="display:none" name="productimage">
+            <input type="file" id="edited_image" style="display:none" accept="image/*" name="productimage">
             <label for="edited_image">
             abc
-            <img src="${data.img}" id="img_edit" alt="">
+            <img src="/${data.img}" id="img_edit" alt="">
             </label>
             <div class="button_for_edit">
-                <button id="cancel">
+                <button id="cancel" type="button">
                     cancel
                 </button>
                 <button type="submit" >
@@ -47,18 +48,23 @@ const edit = async (id) => {
         `
   document.body.appendChild(div)
   document.getElementById("cancel").addEventListener("click", () => {
-    div.rmove()
+    div.remove()
   })
-  document.getElementById("edited_image").addEventListener("change", (this) => {
-    console.log(this)
-    document.getElementById("img_edit").setAttribute("src", "")
-    ischanged = true
+  document.getElementById("edited_image").addEventListener("change",(event)=>{
+    var reader = new FileReader(event.target.files[0])
+    reader.onload= (e)=>{
+      document.getElementById("img_edit").setAttribute("src", e.target.result)
+    }
+    reader.readAsDataURL(event.target.files[0])
+
+     
+      ischanged=true
   })
+  
 
   document.getElementById("editform").addEventListener("submit", async (event) => {
     event.preventDefault()
     const formdata = new FormData(event.target)
-    alert("target")
     const updateobj = {
       id: data.id,
       name: document.getElementById("name").value,
@@ -71,14 +77,14 @@ const edit = async (id) => {
     if (ischanged == true) {
        console.log("changed")
      
-      const addres = await fetch("/AddProductImage", {
+      const addres = await fetch(`/AddProductImage/${token}`, {
         method:"POST",
         body:formdata
       })
       console.log("uploaded")
       const upddData = await addres.json()
       updateobj.newImage = upddData.filename
-      const res = await fetch("/updateProduct", {
+      const res = await fetch(`/updateProduct/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -91,7 +97,7 @@ const edit = async (id) => {
     } else {
 
       console.log("not changed")
-      const res = await fetch("/updateProduct", {
+      const res = await fetch(`/updateProduct/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -104,6 +110,9 @@ const edit = async (id) => {
 
   })
 }
+
+
+
 const addproduct = async () => {
 
   const div = document.createElement("div")
@@ -127,7 +136,7 @@ const addproduct = async () => {
              
          </div>
         <div class="edit_product_image">
-            <input name="productimage" type="file" onchange="changeImage(this)"  id="edited_image" requited style="display:none">
+            <input name="productimage" type="file"  id="edited_image" requited style="display:none" accept="image/*">
             <label for="edited_image">
             click
             <img src="" id="img_pr"  alt="">
@@ -147,19 +156,26 @@ const addproduct = async () => {
         
         `
   document.body.appendChild(div)
+  document.getElementById("edited_image").addEventListener("change",(event)=>{
+    var reader = new FileReader(event.target.files[0])
+    reader.onload= (e)=>{
+      document.getElementById("img_pr").setAttribute("src", e.target.result)
+    }
+    reader.readAsDataURL(event.target.files[0])
+  })
 
   document.getElementById("addForm").addEventListener("submit", async (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
     const productData = {}
-    const res = await fetch("/addProductImage", { method: "POST", body: formData })
+    const res = await fetch(`/addProductImage/${token}`, { method: "POST", body: formData })
     const data = await res.json()
     productData.name = document.getElementById("name").value
     productData.des = document.getElementById("des").value
     productData.price = document.getElementById("price").value
     productData.stock = document.getElementById("stock").value
     productData.img = data.filename
-    let fres = await fetch("/addproduct", {
+    let fres = await fetch(`/addproduct/${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -168,7 +184,7 @@ const addproduct = async () => {
     })
     const data2 = await fres.json()
     console.log(data2)
-    if (data2.status == true) {
+    if (data2.status     == true) {
       location.reload()
     }
   })
@@ -183,7 +199,7 @@ const changeImage = (file) => {
 }
 
 const deleteProduct = async (id) => {
-  const res = await fetch(`/deleteProduct/${id}`)
+  const res = await fetch(`/deleteProduct/${id}/${token}`)
   const data = await res.json()
 
   console.log(data.status)

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/signin.css">
    </head>
 <body>
    <div class="auth_container">
@@ -21,12 +21,19 @@
        <form action="" id="signin_form">
            <input type="email" required name="email" onchange="collectData(this)" placeholder="Email">
            <input type="password" required name="password" id="" onchange="collectData(this)" placeholder="Password">
+           <div class="selectType" id="selectType">
+            <input type="radio" onchange="collectData(this)" value="admin" name="typeOfUser" id="admin">
+            <label for="admin">  Admin      </label>
+          <input type="radio" value="seller" onchange="collectData(this)"  name="typeOfUser" id="seller">
+        <label for="seller">       Seller  </label>
+           </div>
            <button > Sign-IN</button>
            <a href="/forgetPassword"> Forget Password </a>
        </form> 
        <h4 onclick="change(`sign_in`)">
            Sing-UP
        </h4>
+      
 </div>
 
 <div class="sing_in_container sing_up" id="sign_up">
@@ -36,19 +43,31 @@
   <form action="" id="signup_fomr"  >
    <input type="email" required  name="email" onchange="collectSignUpData(this)" placeholder="Email">
    <input type="text" required name="name" onchange="collectSignUpData(this)" placeholder="Name">
-   
-      <input type="password" required name="password" onchange="collectSignUpData(this)" placeholder="password">
+     <input type="password" required name="password" onchange="collectSignUpData(this)" placeholder="password">
       <input type="password" required name="c_password" id="" onchange="collectSignUpData(this)" placeholder="confirm password">
+      <div class="selectType"  id="selectType">
+        <input type="radio"      value="admin" onchange="collectSignUpData(this)" name="newtypeOfUser" id="newadmin">
+        <label for="newadmin">  Admin      </label>
+      <input type="radio" value="seller"  onchange="collectSignUpData(this)"  name="newtypeOfUser" id="newseller">
+    <label for="newseller">       Seller  </label>
+       </div>
       <button style="margin-top: 30px;" > Sing-UP</button>
   </form> 
   <h4 onclick="change(`sign_up`)">
       Sign-IN
   </h4>
+ 
 </div>
    </div>
+   <h3>
+   If you are Seller or Admin  please 
+    <a href="#" id="type"  onclick="activeTypeOf()">
+      Click Here
+    </a>
+ </h3>
 </body>
 
-<script src="./script/script.js"></script>
+<script src="./script/signin.js"></script>
 
 
 </html>     

@@ -1,28 +1,20 @@
 // for sing in 
 const userData={
     email:"",
-    password:""
+    password:"",
+    type:"costumer"
 }
-const signup_form=`<div class="sing_in_container sing_up" id="sign_up">
-<h1 style="margin-bottom: 50px;">
-   Sign-UP
-</h1>
-<form action="" id="signup_fomr"  >
-<input type="email" required  name="email" onchange="collectSignUpData(this)" placeholder="Email">
-<input type="text" required name="name" onchange="collectSignUpData(this)" placeholder="Name">
-
-   <input type="password" required name="password" onchange="collectSignUpData(this)" placeholder="password">
-   <input type="password" required name="c_password" id="" onchange="collectSignUpData(this)" placeholder="confirm password">
-   <button style="margin-top: 30px;" > Sing-UP</button>
-</form> 
-<h4 onclick="change("sign_up)">
-   Sign-IN
-</h4>
-</div>`
+const activeTypeOf =()=>{
+  document.getElementsByClassName("selectType")[0].style.display="flex"
+  document.getElementsByClassName("selectType")[1].style.display="flex"
+}
 const  collectData=(data)=>{
   if(data.name=="email"){
      userData.email=data.value
-  }else{
+   } else if( data.name =="typeOfUser"){
+      userData.type= data.value
+   }
+  else{
     userData.password=data.value
   }
   console.log(userData)
@@ -41,9 +33,7 @@ document.getElementById("signin_form").addEventListener("submit",async(event)=>{
    const res= await fetch( url , content)
    const data= await res.json()
     if(data.status==true){
-        sessionStorage.setItem("id",data.id)
-        sessionStorage.setItem("token",data.token)
-        sessionStorage.setItem("name",data.name)
+         sessionStorage.setItem("userdata", JSON.stringify(data))
         location.href=location.origin
     }else{
        alert(data.message)
@@ -55,7 +45,8 @@ const sing_up_data={
    name:"",
    email:"",
    password:"",
-   confirm_password:""
+   confirm_password:"",
+   type:"costumer"
 }
 let Pconfirm=""
 const collectSignUpData=(data)=>{
@@ -67,7 +58,8 @@ const collectSignUpData=(data)=>{
    sing_up_data.password=data.value
    else if(data.name=="c_password")
    Pconfirm=data.value
-   
+   else if(data.name="newtypeOfUser")
+   sing_up_data.type=data.value  
 }
 const SendOTP= async(email)=>{
      const res=await fetch(`/email/${email}/otp`)
@@ -79,10 +71,10 @@ const SendOTP= async(email)=>{
      <input id="otp" type="number " max="4' placeholder="otp" >
      <button> verify </button>  
      </form >
-     `
+     ` 
+     document.getElementById("type").style.display= "none"
       document.getElementById("otp_form").addEventListener("submit",async(event)=>{
         event.preventDefault()
-       
         const otp=document.getElementById("otp").value
         console.log(otp)
         const res2=await fetch(`/verifyOtp/${otp}`)

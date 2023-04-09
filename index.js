@@ -15,7 +15,7 @@ app.use(session({ secret: process.env.session_secret }))
 
 // MiddleWare
 app.use(origin ,express.static(__dirname + "/public"))
-app.use( origin ,express.static("./upload/productsImages"))
+app.use( origin ,express.static(__dirname+"/upload/productsImages"))
 app.set('view engine', 'ejs');
 app.use(express.json())
 app.use(express.urlencoded({ extended: true, limit: "50mb" }))

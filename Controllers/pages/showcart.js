@@ -5,8 +5,14 @@ module.exports=(req,res)=>{
       console.log("form showcart")
      console.log(user)
        if(user!=undefined){
-        const cartData=JSON.parse(user.cart)
+      if(JSON.parse(user.cart)==null){
+         const cartData=[]
          res.render("./cart.ejs",{cartData})
+      }else{
+        const cartData=JSON.parse(user.cart)
+        res.render("./cart.ejs",{cartData})
+      }
+       
        }else{
           res.send("404 page not found")
        }
